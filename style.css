@@ -576,22 +576,19 @@ html.lenis body {
 }
 
 /* =============================================
-   HERO V2 — 3-Layer Sandwich
-   Layer 1: Background photo
-   Layer 2: Giant text (z:2) — visible around pod edges
-   Layer 3: Transparent pod (z:3) — sits OVER text
-   Layer 4: UI chrome (z:4)
+   HERO V2 — Premium Luxury Redesign
+   Layer stack: bg → text → pod → chrome
    ============================================= */
 .hero-v2 {
   position: relative;
   width: 100%;
   height: 100vh;
-  min-height: 600px;
+  min-height: 620px;
   overflow: hidden;
-  background: #000;
+  background: #0a0a0a;
 }
 
-/* --- Layer 1: Background photo --- */
+/* ---- Layer 1: Background image ---- */
 .hero-bg {
   position: absolute;
   inset: 0;
@@ -606,39 +603,62 @@ html.lenis body {
   display: block;
 }
 
-/* Subtle darkening so text stays readable */
+/*
+ * Multi-directional gradient overlay:
+ * • Strong left band → text area is always legible
+ * • Soft bottom band → CTA area readable
+ * • Gentle top darken → nav contrast
+ */
 .hero-bg-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.18);
+  background:
+    linear-gradient(to right,
+      rgba(0,0,0,0.62) 0%,
+      rgba(0,0,0,0.30) 38%,
+      rgba(0,0,0,0.05) 60%,
+      transparent 75%),
+    linear-gradient(to top,
+      rgba(0,0,0,0.55) 0%,
+      rgba(0,0,0,0.10) 30%,
+      transparent 55%),
+    linear-gradient(to bottom,
+      rgba(0,0,0,0.30) 0%,
+      transparent 18%);
 }
 
-/* --- Layer 2: Giant text (BEHIND pod) --- */
+/* ---- Layer 2: Cycling headline (BEHIND pod) ---- */
 .hero-text-wrap {
   position: absolute;
   inset: 0;
   z-index: 2;
   display: flex;
+  /* Anchor text to left side, vertically centered slightly above midpoint
+     so it intersects the pod horizontally */
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-left: clamp(28px, 5vw, 80px);
+  padding-right: 30%;          /* prevent text running into pod */
+  padding-bottom: 12vh;        /* shift up from true center to hit pod midline */
   pointer-events: none;
-  /* Align vertically with the pod in X6.png — pod sits ~35-55% from top */
-  padding-bottom: 14vh;
 }
 
 .hero-big-text {
-  font-size: clamp(42px, 7vw, 110px);
+  /* Sized so "Move Anywhere" never overflows on desktop down to ~900px */
+  font-size: clamp(44px, 5.8vw, 86px);
   font-weight: 900;
-  line-height: 1;
-  letter-spacing: -0.02em;
+  line-height: 1.0;
+  letter-spacing: -0.025em;
   color: #fff;
   white-space: nowrap;
-  text-align: center;
   margin: 0;
-  text-shadow: 0 2px 30px rgba(0,0,0,0.3);
+  /* Soft shadow lifts text off both light and dark areas */
+  text-shadow:
+    0 1px 0 rgba(0,0,0,0.1),
+    0 4px 24px rgba(0,0,0,0.35);
 }
 
-/* Clip slot so animated word doesn't spill vertically */
+/* Overflow clip for the cycling word */
 .hero-word-slot {
   display: inline-block;
   overflow: hidden;
@@ -652,15 +672,11 @@ html.lenis body {
   line-height: inherit;
 }
 
-.hero-word-separator {
-  display: inline;
-}
-
 .hero-word-static {
   display: inline;
 }
 
-/* --- Layer 3: Transparent pod (ON TOP of text, SAME SIZE as background) --- */
+/* ---- Layer 3: Transparent pod (OVER text, SAME size as bg) ---- */
 .hero-pod-wrap {
   position: absolute;
   inset: 0;
@@ -676,7 +692,7 @@ html.lenis body {
   display: block;
 }
 
-/* --- Layer 4: UI chrome --- */
+/* ---- Layer 4: Chrome UI (above everything) ---- */
 .hero-chrome {
   position: absolute;
   inset: 0;
@@ -684,54 +700,99 @@ html.lenis body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: clamp(96px, 12vh, 136px) clamp(24px, 5vw, 72px) clamp(36px, 5vh, 60px);
+  padding: clamp(88px, 11vh, 130px) clamp(28px, 5vw, 80px) clamp(44px, 6vh, 72px);
   pointer-events: none;
+}
+
+/* Top: category pill */
+.hero-chrome-top {
+  display: flex;
+  align-items: flex-start;
 }
 
 .hero-eyebrow {
   display: inline-flex;
-  align-self: flex-start;
   font-size: 9px;
   font-weight: 500;
   letter-spacing: 5px;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.6);
-  border: 1px solid rgba(255,255,255,0.25);
+  color: rgba(255,255,255,0.55);
+  border: 1px solid rgba(255,255,255,0.2);
   padding: 7px 16px;
   border-radius: 100px;
-  background: rgba(0,0,0,0.18);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(0,0,0,0.22);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
+/* Bottom: left-aligned copy + CTAs */
 .hero-chrome-bottom {
   display: flex;
   align-items: flex-end;
-  justify-content: space-between;
-  gap: 24px;
-  flex-wrap: wrap;
+}
+
+.hero-chrome-left {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  max-width: 420px;
 }
 
 .hero-chrome-desc {
-  font-size: clamp(12px, 1.3vw, 14px);
+  font-size: clamp(13px, 1.2vw, 15px);
   font-weight: 300;
   line-height: 1.85;
-  color: rgba(255,255,255,0.65);
-  max-width: 300px;
-  text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+  color: rgba(255,255,255,0.72);
+  text-shadow: 0 1px 12px rgba(0,0,0,0.5);
+  letter-spacing: 0.01em;
 }
 
 .hero-chrome-actions {
   display: flex;
-  gap: 12px;
-  flex-shrink: 0;
+  align-items: center;
+  gap: 16px;
   pointer-events: all;
+  flex-wrap: wrap;
 }
 
-/* --- Scroll indicator --- */
+/* Primary CTA — solid white pill */
+.hero-cta-primary {
+  padding: 14px 32px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  border-radius: 100px;
+}
+
+/* Secondary CTA — ghost/text style */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  padding: 14px 0;
+  font-family: var(--font);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.8);
+  text-decoration: none;
+  border: none;
+  background: transparent;
+  border-bottom: 1px solid rgba(255,255,255,0.35);
+  transition: color 0.3s ease, border-color 0.3s ease;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.btn-ghost:hover {
+  color: #fff;
+  border-color: rgba(255,255,255,0.8);
+}
+
+/* ---- Scroll indicator ---- */
 .hero-scroll {
   position: absolute;
-  bottom: 40px;
+  bottom: 44px;
   right: 52px;
   display: flex;
   flex-direction: column;
@@ -746,14 +807,14 @@ html.lenis body {
   font-size: 8px;
   text-transform: uppercase;
   letter-spacing: 4px;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.35);
   writing-mode: vertical-rl;
 }
 
 .scroll-line {
   width: 1px;
   height: 56px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.18);
   position: relative;
   overflow: hidden;
 }
@@ -775,53 +836,75 @@ html.lenis body {
   100% { top: 100%; }
 }
 
-/* --- Mobile --- */
-@media (max-width: 768px) {
+/* ---- Tablet ---- */
+@media (max-width: 1024px) {
   .hero-big-text {
-    font-size: clamp(32px, 9vw, 64px);
-    white-space: nowrap;
-  }
-
-  .hero-pod-img {
-    object-position: center 50%;
+    font-size: clamp(40px, 6.5vw, 72px);
   }
 
   .hero-text-wrap {
-    padding-bottom: 8vh;
+    padding-right: 20%;
+  }
+}
+
+/* ---- Mobile ---- */
+@media (max-width: 700px) {
+  .hero-v2 {
+    min-height: 100svh;
   }
 
-  .hero-pod-wrap {
-    padding-top: 0;
+  .hero-bg-overlay {
+    background:
+      linear-gradient(to bottom,
+        rgba(0,0,0,0.35) 0%,
+        rgba(0,0,0,0.10) 35%,
+        rgba(0,0,0,0.10) 55%,
+        rgba(0,0,0,0.65) 100%);
+  }
+
+  .hero-text-wrap {
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0 20px 52vh;
+    padding-right: 20px;
+  }
+
+  .hero-big-text {
+    font-size: clamp(36px, 10vw, 56px);
+    text-align: center;
+    white-space: normal;
   }
 
   .hero-chrome {
-    padding: 88px 20px 32px;
+    padding: 84px 20px 36px;
   }
 
   .hero-chrome-bottom {
-    flex-direction: column;
+    justify-content: center;
+  }
+
+  .hero-chrome-left {
+    max-width: 100%;
     align-items: flex-start;
-    gap: 16px;
+    gap: 20px;
   }
 
   .hero-chrome-desc {
-    max-width: 100%;
+    font-size: 13px;
   }
 
   .hero-chrome-actions {
-    width: 100%;
-    flex-direction: column;
+    flex-direction: row;
+    gap: 12px;
   }
 
-  .hero-chrome-actions .btn {
-    width: 100%;
-    text-align: center;
-    justify-content: center;
+  .hero-cta-primary {
+    padding: 13px 24px;
   }
 
   .hero-scroll {
     right: 16px;
-    bottom: 20px;
+    bottom: 24px;
   }
 }
 

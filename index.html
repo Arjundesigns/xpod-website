@@ -68,37 +68,47 @@
     </ul>
   </nav>
 
-  <!-- ========== HERO — 3-Layer Sandwich Effect ========== -->
+  <!-- ========== HERO — Premium 3-Layer Sandwich ========== -->
   <section class="hero-v2" id="hero">
 
     <!-- LAYER 1: Background — X6.png full scene -->
     <div class="hero-bg">
       <img src="images/X6.png" alt="" class="hero-bg-img" aria-hidden="true">
+      <!-- Left-side gradient for text legibility -->
       <div class="hero-bg-overlay"></div>
     </div>
 
-    <!-- LAYER 2: Giant cycling text (behind the pod) -->
+    <!-- LAYER 2: Cycling headline text (sandwiched behind pod) -->
     <div class="hero-text-wrap" aria-hidden="true">
-      <h1 class="hero-big-text">
-        <span class="hero-word-slot" id="hero-cycle-word"><span class="hero-word-inner">Move</span></span><span class="hero-word-separator">&nbsp;</span><span class="hero-word-static">Anywhere</span>
-      </h1>
+      <p class="hero-big-text">
+        <span class="hero-word-slot" id="hero-cycle-word"><span class="hero-word-inner">Move</span></span><span class="hero-word-static"> Anywhere</span>
+      </p>
     </div>
 
-    <!-- LAYER 3: Transparent-background pod (sits over text) -->
+    <!-- LAYER 3: Transparent pod — same dimensions as background, sits over text -->
     <div class="hero-pod-wrap">
-      <img src="images/X6-REMOVED.png" alt="Xpod X6" class="hero-pod-img" id="hero-pod-img">
+      <img src="images/X6-REMOVED.png" alt="Xpod X6 Modular Space" class="hero-pod-img" id="hero-pod-img">
     </div>
 
-    <!-- LAYER 4: UI chrome (above everything) -->
+    <!-- LAYER 4: All UI chrome (above everything) -->
     <div class="hero-chrome">
-      <span class="hero-eyebrow">Portable Spaces</span>
+
+      <!-- Category label -->
+      <div class="hero-chrome-top">
+        <span class="hero-eyebrow">Portable Spaces</span>
+      </div>
+
+      <!-- Bottom: left column = copy + CTAs -->
       <div class="hero-chrome-bottom">
-        <p class="hero-chrome-desc">Architecturally refined modular spaces built<br>for flexibility, longevity, and visual impact.</p>
-        <div class="hero-chrome-actions">
-          <a href="#products" class="btn btn-white">Explore Xpods</a>
-          <a href="#contact" class="btn btn-outline-white">Book Now</a>
+        <div class="hero-chrome-left">
+          <p class="hero-chrome-desc">Architecturally refined modular spaces built<br>for flexibility, longevity, and visual impact.</p>
+          <div class="hero-chrome-actions">
+            <a href="#products" class="btn btn-white hero-cta-primary">Explore Xpods</a>
+            <a href="#contact" class="btn btn-ghost hero-cta-secondary">Book Now →</a>
+          </div>
         </div>
       </div>
+
     </div>
 
     <!-- Scroll indicator -->
@@ -108,6 +118,7 @@
     </div>
 
   </section>
+
 
 
   <!-- ========== MARQUEE ========== -->
