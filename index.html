@@ -68,46 +68,35 @@
     </ul>
   </nav>
 
-  <!-- ========== HERO V2 — Centered Pod + Giant Background Text ========== -->
-  <section class="hero-v2" id="hero">
+  <!-- ========== HERO (Scroll Animation) ========== -->
+  <section class="hero-sequence" id="hero">
+    <div class="hero-sticky">
+      <canvas id="hero-canvas"></canvas>
+      <div class="hero-overlay"></div>
 
-    <!-- Layer 1: Giant background text (z-index 1) -->
-    <div class="hero-bg-text" aria-hidden="true">
-      <h1>
-        <span class="hero-word-cycle" id="hero-cycle-word"><span class="hero-word-cycle-inner">Move</span></span><span class="hero-word-static"> Anywhere</span>
-      </h1>
-    </div>
+      <!-- Text overlays that appear during scroll -->
+      <div class="hero-text-layer" id="hero-text-1">
+        <p class="hero-label">Portable Spaces</p>
+        <h1 class="hero-title">
+          <span class="title-line">Move</span>
+          <span class="title-line">Anywhere.</span>
+        </h1>
+      </div>
 
-    <!-- Layer 2: Pod image (z-index 2) -->
-    <div class="hero-product-wrap">
-      <img src="images/X6-REMOVED.png" alt="Xpod X6 — Portable Space" class="hero-product-img" id="hero-product-img">
-    </div>
-
-    <!-- Layer 3: Foreground chrome (z-index 3) -->
-    <div class="hero-foreground">
-
-      <!-- Top pill badge -->
-      <div class="hero-tag" id="hero-tag">Portable Spaces</div>
-
-      <!-- Bottom row: description left, buttons right -->
-      <div class="hero-bottom-row">
-        <p class="hero-desc" id="hero-desc">Architecturally refined modular spaces<br>built for flexibility and visual impact.</p>
-        <div class="hero-actions" id="hero-actions">
+      <div class="hero-text-layer hero-text-bottom" id="hero-text-2">
+        <p class="hero-subtitle">Architecturally refined modular spaces built for flexibility, longevity, and visual impact.</p>
+        <div class="hero-actions">
           <a href="#products" class="btn btn-white">Explore Xpods</a>
           <a href="#contact" class="btn btn-outline-white">Book Now</a>
         </div>
       </div>
 
+      <div class="hero-scroll" id="hero-scroll-indicator">
+        <div class="scroll-line"></div>
+        <span>Scroll</span>
+      </div>
     </div>
-
-    <!-- Scroll indicator -->
-    <div class="hero-scroll" id="hero-scroll-indicator">
-      <div class="scroll-line"></div>
-      <span>Scroll</span>
-    </div>
-
   </section>
-
 
   <!-- ========== MARQUEE ========== -->
   <div class="marquee-strip">

@@ -576,160 +576,129 @@ html.lenis body {
 }
 
 /* =============================================
-   HERO V2 — Pod + Giant Overlap Text
+   HERO — Scroll-Driven Image Sequence (GSAP Pinned)
    ============================================= */
-.hero-v2 {
+.hero-sequence {
   position: relative;
-  width: 100%;
   height: 100vh;
-  min-height: 640px;
-  background: #050505;
+  background: var(--black);
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-/* ---- Layer 1: Giant BG text ---- */
-.hero-bg-text {
+.hero-sticky {
+  width: 100%;
+  height: 100%;
+}
+
+#hero-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-overlay {
   position: absolute;
   inset: 0;
+  background: linear-gradient(to top,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0.15) 40%,
+      rgba(0, 0, 0, 0.05) 100%);
+  pointer-events: none;
   z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
 }
 
-.hero-bg-text h1 {
-  font-size: clamp(88px, 15vw, 200px);
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: -0.03em;
-  color: #fff;
-  white-space: nowrap;
-  text-align: center;
-  margin: 0;
-  /* Shift text slightly upward so pod sits across center of text */
-  transform: translateY(-8%);
-}
-
-/* Clip wrapper so sliding words don't peek outside */
-.hero-word-cycle {
-  display: inline-block;
-  overflow: hidden;
-  vertical-align: top;
-}
-
-.hero-word-cycle-inner {
-  display: inline-block;
-  will-change: transform, opacity;
-}
-
-.hero-word-static {
-  display: inline;
-}
-
-/* ---- Layer 2: Pod image (transparent PNG, floats over text) ---- */
-.hero-product-wrap {
+/* Text layers — controlled by JS */
+.hero-text-layer {
   position: absolute;
-  inset: 0;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-}
-
-.hero-product-img {
-  width: clamp(300px, 68vw, 860px);
-  max-height: 80vh;
-  object-fit: contain;
-  display: block;
-  /* Slight glow to separate from dark bg */
-  filter: drop-shadow(0 0 60px rgba(255,255,255,0.06))
-          drop-shadow(0 30px 60px rgba(0,0,0,0.5));
-}
-
-/* ---- Layer 3: Foreground chrome ---- */
-.hero-foreground {
-  position: absolute;
-  inset: 0;
   z-index: 3;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: clamp(96px, 13vh, 140px) clamp(28px, 5vw, 72px) clamp(40px, 6vh, 64px);
+  opacity: 0;
+  transition: opacity 0.5s ease;
   pointer-events: none;
 }
 
-/* Pill badge at top-left */
-.hero-tag {
-  display: inline-flex;
-  align-self: flex-start;
-  font-size: 9px;
-  font-weight: 500;
-  letter-spacing: 5px;
+.hero-text-layer.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#hero-text-1 {
+  bottom: clamp(120px, 18vh, 220px);
+  left: clamp(32px, 6vw, 100px);
+}
+
+#hero-text-2 {
+  bottom: clamp(60px, 8vh, 120px);
+  left: clamp(32px, 6vw, 100px);
+}
+
+.hero-label {
   text-transform: uppercase;
-  color: rgba(255,255,255,0.4);
-  border: 1px solid rgba(255,255,255,0.12);
-  padding: 7px 16px;
-  border-radius: 100px;
-  background: rgba(255,255,255,0.03);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  letter-spacing: 8px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 24px;
+  font-weight: 500;
 }
 
-/* Bottom row */
-.hero-bottom-row {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 24px;
-  flex-wrap: wrap;
+.hero-title {
+  font-size: clamp(56px, 11vw, 120px);
+  font-weight: 900;
+  line-height: 0.9;
+  margin-bottom: 28px;
+  color: var(--white);
+  letter-spacing: -3px;
 }
 
-.hero-desc {
-  font-size: clamp(12px, 1.3vw, 14px);
+.title-line {
+  display: block;
+}
+
+.hero-subtitle {
+  font-size: clamp(14px, 1.5vw, 16px);
+  color: rgba(255, 255, 255, 0.5);
+  max-width: 440px;
+  line-height: 1.8;
+  margin-bottom: 32px;
   font-weight: 300;
-  line-height: 1.85;
-  color: rgba(255,255,255,0.42);
-  max-width: 320px;
 }
 
-.hero-v2 .hero-actions {
+.hero-actions {
   display: flex;
-  gap: 12px;
-  flex-shrink: 0;
-  pointer-events: all;
+  gap: 16px;
 }
 
-/* ---- Scroll indicator ---- */
 .hero-scroll {
   position: absolute;
   bottom: 40px;
-  right: 52px;
+  right: 60px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
-  z-index: 4;
+  gap: 14px;
+  z-index: 3;
   opacity: 1;
   transition: opacity 0.4s ease;
 }
 
+.hero-scroll.fade-out {
+  opacity: 0;
+}
+
 .hero-scroll span {
-  font-size: 8px;
+  font-size: 9px;
   text-transform: uppercase;
   letter-spacing: 4px;
-  color: rgba(255,255,255,0.25);
+  color: rgba(255, 255, 255, 0.3);
   writing-mode: vertical-rl;
 }
 
 .scroll-line {
   width: 1px;
-  height: 56px;
-  background: rgba(255,255,255,0.12);
+  height: 60px;
+  background: rgba(255, 255, 255, 0.15);
   position: relative;
   overflow: hidden;
 }
@@ -746,72 +715,18 @@ html.lenis body {
 }
 
 @keyframes scrollDown {
-  0%   { top: -100%; }
-  50%  { top: 0; }
-  100% { top: 100%; }
-}
-
-/* ---- Tablet ---- */
-@media (max-width: 900px) {
-  .hero-bg-text h1 {
-    font-size: clamp(64px, 14vw, 130px);
+  0% {
+    top: -100%;
   }
 
-  .hero-product-img {
-    width: clamp(280px, 80vw, 640px);
+  50% {
+    top: 0;
+  }
+
+  100% {
+    top: 100%;
   }
 }
-
-/* ---- Mobile ---- */
-@media (max-width: 600px) {
-  .hero-v2 {
-    min-height: 100svh;
-  }
-
-  .hero-bg-text h1 {
-    font-size: clamp(52px, 16vw, 90px);
-    transform: translateY(-14%);
-    white-space: normal;
-    text-align: center;
-    padding: 0 16px;
-  }
-
-  .hero-product-img {
-    width: clamp(260px, 90vw, 420px);
-    max-height: 60vh;
-  }
-
-  .hero-foreground {
-    padding: 88px 20px 32px;
-  }
-
-  .hero-bottom-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-  }
-
-  .hero-desc {
-    max-width: 100%;
-  }
-
-  .hero-v2 .hero-actions {
-    width: 100%;
-    flex-direction: column;
-  }
-
-  .hero-v2 .hero-actions .btn {
-    width: 100%;
-    text-align: center;
-    justify-content: center;
-  }
-
-  .hero-scroll {
-    right: 16px;
-    bottom: 24px;
-  }
-}
-
 
 /* =============================================
    HIGHLIGHTS — Pinned Background & Scrolling Capsules
