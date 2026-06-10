@@ -119,6 +119,56 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // =============================================
+  // HERO — Word Cycle Animation (Meet -> Move -> Stay)
+  // =============================================
+  let wordCycleInitialized = false;
+
+  function initWordCycleAnimation() {
+    if (wordCycleInitialized) return;
+    const cycleWordEl = document.getElementById('hero-cycle-word');
+    const wordInnerEl = cycleWordEl ? cycleWordEl.querySelector('.hero-word-inner') : null;
+
+    if (cycleWordEl && wordInnerEl) {
+      wordCycleInitialized = true;
+      const words = ['Meet', 'Move', 'Stay'];
+      let wordIndex = 0;
+
+      function cycleNext() {
+        const next = (wordIndex + 1) % words.length;
+
+        // Slide current word UP and out
+        wordInnerEl.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease';
+        wordInnerEl.style.transform  = 'translateY(-115%)';
+        wordInnerEl.style.opacity    = '0';
+
+        setTimeout(() => {
+          // Snap position to below
+          wordInnerEl.style.transition = 'none';
+          wordInnerEl.style.transform  = 'translateY(115%)';
+          wordInnerEl.style.opacity    = '0';
+          wordInnerEl.textContent      = words[next];
+
+          void wordInnerEl.offsetWidth; // force reflow
+
+          // Slide new word UP into place
+          wordInnerEl.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease';
+          wordInnerEl.style.transform  = 'translateY(0)';
+          wordInnerEl.style.opacity    = '1';
+
+          wordIndex = next;
+        }, 480);
+      }
+
+      // Cycle every 3 seconds
+      setTimeout(() => {
+        cycleNext();
+        setInterval(cycleNext, 3000);
+      }, 3000);
+    }
+  }
+
+
+  // =============================================
   // PAGE LOADER & ENTRY TRIGGER
   // =============================================
   const loader = document.getElementById('loader');
@@ -134,6 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initEntryAnimations();
         initHeroEntryAnimations();
       }
+      initWordCycleAnimation();
     }, 1400);
   });
 
@@ -142,6 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
       loader.classList.add('hidden');
       document.body.classList.remove('locked');
       if (lenis) lenis.start();
+      initWordCycleAnimation();
     }
   }, 3500);
 
