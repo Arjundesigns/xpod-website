@@ -65,99 +65,59 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // =============================================
-  // IMAGE SEQUENCE — Canvas Scroll Animation (GSAP Pinned)
+  // HERO — Word Cycle Animation (Move / Stay / Meet)
   // =============================================
-  const FRAME_COUNT = 121;
-  const FRAME_PATH = 'IMAGE SEQ/ezgif-frame-';
-  const canvas = document.getElementById('hero-canvas');
-  const ctx = canvas ? canvas.getContext('2d') : null;
-  const heroSection = document.getElementById('hero');
-  const heroText1 = document.getElementById('hero-text-1');
-  const heroText2 = document.getElementById('hero-text-2');
-  const scrollIndicator = document.getElementById('hero-scroll-indicator');
+  const cycleWordEl = document.getElementById('hero-cycle-word');
+  const wordInnerEl = cycleWordEl ? cycleWordEl.querySelector('.hero-word-inner') : null;
 
-  const images = [];
-  let loadedCount = 0;
-  let currentFrame = 0;
+  if (cycleWordEl && wordInnerEl) {
+    const words = ['Move', 'Stay', 'Meet'];
+    let wordIndex = 0;
 
-  function framePath(index) {
-    const num = String(index).padStart(3, '0');
-    return `${FRAME_PATH}${num}.jpg`;
-  }
+    function cycleNext() {
+      const next = (wordIndex + 1) % words.length;
 
-  function resizeCanvas() {
-    if (!canvas) return;
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
+      // Slide current word UP and out
+      wordInnerEl.style.transition = 'transform 0.42s cubic-bezier(0.4,0,0.2,1), opacity 0.35s ease';
+      wordInnerEl.style.transform  = 'translateY(-115%)';
+      wordInnerEl.style.opacity    = '0';
 
-  function drawFrame(frameIndex) {
-    if (!ctx || !images[frameIndex] || !images[frameIndex].complete) return;
-    const img = images[frameIndex];
-    const cw = canvas.width, ch = canvas.height;
-    const iw = img.naturalWidth, ih = img.naturalHeight;
-    const scale = Math.max(cw / iw, ch / ih);
-    const sw = iw * scale, sh = ih * scale;
-    const sx = (cw - sw) / 2, sy = (ch - sh) / 2;
-    ctx.clearRect(0, 0, cw, ch);
-    ctx.drawImage(img, sx, sy, sw, sh);
-  }
+      setTimeout(() => {
+        wordInnerEl.style.transition = 'none';
+        wordInnerEl.style.transform  = 'translateY(115%)';
+        wordInnerEl.style.opacity    = '0';
+        wordInnerEl.textContent      = words[next];
 
-  function preloadFrames() {
-    for (let i = 1; i <= FRAME_COUNT; i++) {
-      const img = new Image();
-      img.src = framePath(i);
-      img.onload = () => {
-        loadedCount++;
-        if (i === 1 && ctx) { resizeCanvas(); drawFrame(0); }
-        if (loadedCount === FRAME_COUNT) {
-          initHeroScrollTrigger();
-        }
-      };
-      images.push(img);
+        void wordInnerEl.offsetWidth; // force reflow
+
+        // Slide new word UP into place
+        wordInnerEl.style.transition = 'transform 0.52s cubic-bezier(0.16,1,0.3,1), opacity 0.4s ease';
+        wordInnerEl.style.transform  = 'translateY(0)';
+        wordInnerEl.style.opacity    = '1';
+
+        wordIndex = next;
+      }, 390);
     }
+
+    // Start after 2s, cycle every 2s
+    setTimeout(() => {
+      cycleNext();
+      setInterval(cycleNext, 2000);
+    }, 2000);
   }
 
-  // Set up GSAP ScrollTrigger to PIN the hero and scrub through frames
-  function initHeroScrollTrigger() {
-    if (!hasGSAP || !heroSection || !ctx) return;
+  // Hero entry animations (called after loader)
+  function initHeroEntryAnimations() {
+    if (!hasGSAP) return;
+    const textEl   = document.querySelector('.hero-big-text');
+    const podEl    = document.querySelector('.hero-pod-img');
+    const chromeEl = document.querySelector('.hero-chrome');
+    const scrollEl = document.getElementById('hero-scroll-indicator');
 
-    // Create a dummy tween target for the scrub
-    const frameObj = { frame: 0 };
-
-    ScrollTrigger.create({
-      trigger: heroSection,
-      start: 'top top',
-      end: '+=300%',     // 3x viewport height of scroll distance for the animation
-      pin: true,          // PIN the hero — page stops scrolling here
-      scrub: 0.5,         // Smooth scrub (0.5s catch-up)
-      onUpdate: (self) => {
-        const progress = self.progress;  // 0 → 1
-        const frameIndex = Math.min(FRAME_COUNT - 1, Math.floor(progress * FRAME_COUNT));
-
-        if (frameIndex !== currentFrame) {
-          currentFrame = frameIndex;
-          drawFrame(currentFrame);
-        }
-
-        // Text layers — appear at scroll milestones, stay visible
-        if (heroText1) heroText1.classList.toggle('visible', progress > 0.40);
-        if (heroText2) heroText2.classList.toggle('visible', progress > 0.55);
-        if (scrollIndicator) scrollIndicator.classList.toggle('fade-out', progress > 0.05);
-      },
-    });
-
-    // CRITICAL FIX: Because this hero trigger is created asynchronously (after images load),
-    // it gets added to the DOM after the rest of the page's ScrollTriggers have calculated their positions.
-    // The massive 300vh pin pushes everything down. We MUST sort and refresh to recalculate everything.
-    ScrollTrigger.sort();
-    ScrollTrigger.refresh();
-  }
-
-  if (canvas && ctx) {
-    resizeCanvas();
-    preloadFrames();
-    window.addEventListener('resize', () => { resizeCanvas(); drawFrame(currentFrame); });
+    if (textEl)   gsap.from(textEl,   { y: 40, opacity: 0, duration: 1.1, ease: 'power3.out', delay: 0.2 });
+    if (podEl)    gsap.from(podEl,    { y: 50, opacity: 0, duration: 1.3, ease: 'power3.out', delay: 0.0 });
+    if (chromeEl) gsap.from(chromeEl, { opacity: 0,        duration: 1.0, ease: 'power2.out', delay: 0.5 });
+    if (scrollEl) gsap.from(scrollEl, { opacity: 0, y: 10, duration: 0.9, ease: 'power2.out', delay: 1.1 });
   }
 
 
@@ -173,7 +133,10 @@ document.addEventListener('DOMContentLoaded', () => {
       loader.classList.add('hidden');
       document.body.classList.remove('locked');
       if (lenis) lenis.start();
-      if (hasGSAP) initEntryAnimations();
+      if (hasGSAP) {
+        initEntryAnimations();
+        initHeroEntryAnimations();
+      }
     }, 1400);
   });
 

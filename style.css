@@ -576,129 +576,191 @@ html.lenis body {
 }
 
 /* =============================================
-   HERO — Scroll-Driven Image Sequence (GSAP Pinned)
+   HERO V2 — 3-Layer Sandwich
+   Layer 1: Background photo
+   Layer 2: Giant text (z:2) — visible around pod edges
+   Layer 3: Transparent pod (z:3) — sits OVER text
+   Layer 4: UI chrome (z:4)
    ============================================= */
-.hero-sequence {
+.hero-v2 {
   position: relative;
+  width: 100%;
   height: 100vh;
-  background: var(--black);
+  min-height: 600px;
   overflow: hidden;
+  background: #000;
 }
 
-.hero-sticky {
-  width: 100%;
-  height: 100%;
-}
-
-#hero-canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.hero-overlay {
+/* --- Layer 1: Background photo --- */
+.hero-bg {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top,
-      rgba(0, 0, 0, 0.7) 0%,
-      rgba(0, 0, 0, 0.15) 40%,
-      rgba(0, 0, 0, 0.05) 100%);
-  pointer-events: none;
   z-index: 1;
 }
 
-/* Text layers — controlled by JS */
-.hero-text-layer {
-  position: absolute;
-  z-index: 3;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  pointer-events: none;
-}
-
-.hero-text-layer.visible {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-#hero-text-1 {
-  bottom: clamp(120px, 18vh, 220px);
-  left: clamp(32px, 6vw, 100px);
-}
-
-#hero-text-2 {
-  bottom: clamp(60px, 8vh, 120px);
-  left: clamp(32px, 6vw, 100px);
-}
-
-.hero-label {
-  text-transform: uppercase;
-  letter-spacing: 8px;
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.5);
-  margin-bottom: 24px;
-  font-weight: 500;
-}
-
-.hero-title {
-  font-size: clamp(56px, 11vw, 120px);
-  font-weight: 900;
-  line-height: 0.9;
-  margin-bottom: 28px;
-  color: var(--white);
-  letter-spacing: -3px;
-}
-
-.title-line {
+.hero-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
   display: block;
 }
 
-.hero-subtitle {
-  font-size: clamp(14px, 1.5vw, 16px);
-  color: rgba(255, 255, 255, 0.5);
-  max-width: 440px;
-  line-height: 1.8;
-  margin-bottom: 32px;
-  font-weight: 300;
+/* Subtle darkening so text stays readable */
+.hero-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.18);
 }
 
-.hero-actions {
+/* --- Layer 2: Giant text (BEHIND pod) --- */
+.hero-text-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
   display: flex;
-  gap: 16px;
+  align-items: center;          /* vertically center to match pod */
+  justify-content: center;
+  pointer-events: none;
+  /* Shift text slightly above true center so it crosses the pod's midline */
+  padding-bottom: 6vh;
 }
 
+.hero-big-text {
+  font-size: clamp(72px, 14.5vw, 210px);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: #fff;
+  white-space: nowrap;
+  text-align: center;
+  margin: 0;
+  /* Slight text-shadow to lift it off the background */
+  text-shadow: 0 2px 40px rgba(0,0,0,0.25);
+}
+
+/* Clip slot so animated word doesn't spill vertically */
+.hero-word-slot {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  line-height: inherit;
+}
+
+.hero-word-inner {
+  display: inline-block;
+  will-change: transform, opacity;
+  line-height: inherit;
+}
+
+.hero-word-separator {
+  display: inline;
+}
+
+.hero-word-static {
+  display: inline;
+}
+
+/* --- Layer 3: Transparent pod (ON TOP of text) --- */
+.hero-pod-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  /* Shift pod slightly down so it sits on "ground" plane of bg image */
+  padding-top: 6vh;
+}
+
+.hero-pod-img {
+  width: clamp(340px, 62vw, 900px);
+  max-height: 75vh;
+  object-fit: contain;
+  display: block;
+  /* Drop shadow gives depth, separates pod from text */
+  filter: drop-shadow(0 20px 60px rgba(0,0,0,0.45));
+}
+
+/* --- Layer 4: UI chrome --- */
+.hero-chrome {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(96px, 12vh, 136px) clamp(24px, 5vw, 72px) clamp(36px, 5vh, 60px);
+  pointer-events: none;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-self: flex-start;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  border: 1px solid rgba(255,255,255,0.25);
+  padding: 7px 16px;
+  border-radius: 100px;
+  background: rgba(0,0,0,0.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.hero-chrome-bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.hero-chrome-desc {
+  font-size: clamp(12px, 1.3vw, 14px);
+  font-weight: 300;
+  line-height: 1.85;
+  color: rgba(255,255,255,0.65);
+  max-width: 300px;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+}
+
+.hero-chrome-actions {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+  pointer-events: all;
+}
+
+/* --- Scroll indicator --- */
 .hero-scroll {
   position: absolute;
   bottom: 40px;
-  right: 60px;
+  right: 52px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
-  z-index: 3;
+  gap: 12px;
+  z-index: 5;
   opacity: 1;
   transition: opacity 0.4s ease;
 }
 
-.hero-scroll.fade-out {
-  opacity: 0;
-}
-
 .hero-scroll span {
-  font-size: 9px;
+  font-size: 8px;
   text-transform: uppercase;
   letter-spacing: 4px;
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.4);
   writing-mode: vertical-rl;
 }
 
 .scroll-line {
   width: 1px;
-  height: 60px;
-  background: rgba(255, 255, 255, 0.15);
+  height: 56px;
+  background: rgba(255, 255, 255, 0.2);
   position: relative;
   overflow: hidden;
 }
@@ -715,18 +777,64 @@ html.lenis body {
 }
 
 @keyframes scrollDown {
-  0% {
-    top: -100%;
+  0%   { top: -100%; }
+  50%  { top: 0; }
+  100% { top: 100%; }
+}
+
+/* --- Mobile --- */
+@media (max-width: 768px) {
+  .hero-big-text {
+    font-size: clamp(48px, 15vw, 90px);
+    white-space: normal;
+    text-align: center;
+    padding: 0 12px;
   }
 
-  50% {
-    top: 0;
+  .hero-pod-img {
+    width: clamp(280px, 88vw, 480px);
+    max-height: 55vh;
   }
 
-  100% {
-    top: 100%;
+  .hero-text-wrap {
+    padding-bottom: 10vh;
+  }
+
+  .hero-pod-wrap {
+    padding-top: 8vh;
+  }
+
+  .hero-chrome {
+    padding: 88px 20px 32px;
+  }
+
+  .hero-chrome-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .hero-chrome-desc {
+    max-width: 100%;
+  }
+
+  .hero-chrome-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .hero-chrome-actions .btn {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .hero-scroll {
+    right: 16px;
+    bottom: 20px;
   }
 }
+
 
 /* =============================================
    HIGHLIGHTS — Pinned Background & Scrolling Capsules

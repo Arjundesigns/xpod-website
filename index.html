@@ -68,35 +68,47 @@
     </ul>
   </nav>
 
-  <!-- ========== HERO (Scroll Animation) ========== -->
-  <section class="hero-sequence" id="hero">
-    <div class="hero-sticky">
-      <canvas id="hero-canvas"></canvas>
-      <div class="hero-overlay"></div>
+  <!-- ========== HERO — 3-Layer Sandwich Effect ========== -->
+  <section class="hero-v2" id="hero">
 
-      <!-- Text overlays that appear during scroll -->
-      <div class="hero-text-layer" id="hero-text-1">
-        <p class="hero-label">Portable Spaces</p>
-        <h1 class="hero-title">
-          <span class="title-line">Move</span>
-          <span class="title-line">Anywhere.</span>
-        </h1>
-      </div>
+    <!-- LAYER 1: Background scenic image -->
+    <div class="hero-bg">
+      <img src="images/HEADER.jpeg" alt="" class="hero-bg-img" aria-hidden="true">
+      <div class="hero-bg-overlay"></div>
+    </div>
 
-      <div class="hero-text-layer hero-text-bottom" id="hero-text-2">
-        <p class="hero-subtitle">Architecturally refined modular spaces built for flexibility, longevity, and visual impact.</p>
-        <div class="hero-actions">
+    <!-- LAYER 2: Giant cycling text (behind the pod) -->
+    <div class="hero-text-wrap" aria-hidden="true">
+      <h1 class="hero-big-text">
+        <span class="hero-word-slot" id="hero-cycle-word"><span class="hero-word-inner">Move</span></span><span class="hero-word-separator">&nbsp;</span><span class="hero-word-static">Anywhere</span>
+      </h1>
+    </div>
+
+    <!-- LAYER 3: Transparent-background pod (sits over text) -->
+    <div class="hero-pod-wrap">
+      <img src="images/X6-REMOVED.png" alt="Xpod X6" class="hero-pod-img" id="hero-pod-img">
+    </div>
+
+    <!-- LAYER 4: UI chrome (above everything) -->
+    <div class="hero-chrome">
+      <span class="hero-eyebrow">Portable Spaces</span>
+      <div class="hero-chrome-bottom">
+        <p class="hero-chrome-desc">Architecturally refined modular spaces built<br>for flexibility, longevity, and visual impact.</p>
+        <div class="hero-chrome-actions">
           <a href="#products" class="btn btn-white">Explore Xpods</a>
           <a href="#contact" class="btn btn-outline-white">Book Now</a>
         </div>
       </div>
-
-      <div class="hero-scroll" id="hero-scroll-indicator">
-        <div class="scroll-line"></div>
-        <span>Scroll</span>
-      </div>
     </div>
+
+    <!-- Scroll indicator -->
+    <div class="hero-scroll" id="hero-scroll-indicator">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+
   </section>
+
 
   <!-- ========== MARQUEE ========== -->
   <div class="marquee-strip">
