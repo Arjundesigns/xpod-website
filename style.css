@@ -661,8 +661,8 @@ html.lenis body {
   pointer-events: auto;
   position: relative;
   z-index: 5;
-  /* Allow overlap with the pod roof */
-  transform: translateY(2vh);
+  /* Allow overlap with the pod roof (10-15% overlap) */
+  transform: translateY(11vh);
 }
 
 .hero-title {
@@ -808,7 +808,7 @@ html.lenis body {
   }
   
   .hero-title-wrap {
-    transform: translateY(1vh);
+    transform: translateY(8vh);
   }
 }
 
@@ -835,7 +835,7 @@ html.lenis body {
   }
 
   .hero-title-wrap {
-    transform: translateY(0.5vh);
+    transform: translateY(6vh);
   }
 
   .hero-title {
