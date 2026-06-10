@@ -576,14 +576,14 @@ html.lenis body {
 }
 
 /* =============================================
-   HERO V2 — X6 Image with Cycling Word Effect
+   HERO V2 — Pod + Giant Overlap Text
    ============================================= */
 .hero-v2 {
   position: relative;
   width: 100%;
   height: 100vh;
-  min-height: 600px;
-  background: var(--black);
+  min-height: 640px;
+  background: #050505;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -599,60 +599,59 @@ html.lenis body {
   align-items: center;
   justify-content: center;
   pointer-events: none;
-  white-space: nowrap;
-  line-height: 1;
-  font-size: clamp(80px, 14vw, 180px);
-  font-weight: 900;
-  letter-spacing: -4px;
-  color: var(--white);
-  padding: 0 2vw;
-  /* Vertically offset to sit mostly in the upper-mid zone */
-  padding-top: 0;
-  align-items: center;
 }
 
+.hero-bg-text h1 {
+  font-size: clamp(88px, 15vw, 200px);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: #fff;
+  white-space: nowrap;
+  text-align: center;
+  margin: 0;
+  /* Shift text slightly upward so pod sits across center of text */
+  transform: translateY(-8%);
+}
+
+/* Clip wrapper so sliding words don't peek outside */
 .hero-word-cycle {
   display: inline-block;
-  margin-right: 0.18em;
-  /* Clip container so exiting/entering words don't overflow */
   overflow: hidden;
-  vertical-align: bottom;
+  vertical-align: top;
 }
 
-/* Inner span is the actual animatable element */
 .hero-word-cycle-inner {
   display: inline-block;
   will-change: transform, opacity;
 }
 
 .hero-word-static {
-  display: inline-block;
+  display: inline;
 }
 
-/* ---- Layer 2: Product image ---- */
+/* ---- Layer 2: Pod image (transparent PNG, floats over text) ---- */
 .hero-product-wrap {
   position: absolute;
   inset: 0;
   z-index: 2;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   pointer-events: none;
-  padding-bottom: 0;
 }
 
 .hero-product-img {
-  width: clamp(320px, 72%, 900px);
-  max-height: 90vh;
+  width: clamp(300px, 68vw, 860px);
+  max-height: 80vh;
   object-fit: contain;
-  object-position: bottom center;
   display: block;
-  /* Slight drop shadow to ground it against the bg text */
-  filter: drop-shadow(0 40px 80px rgba(0,0,0,0.7));
-  will-change: transform;
+  /* Slight glow to separate from dark bg */
+  filter: drop-shadow(0 0 60px rgba(255,255,255,0.06))
+          drop-shadow(0 30px 60px rgba(0,0,0,0.5));
 }
 
-/* ---- Layer 3: Foreground UI ---- */
+/* ---- Layer 3: Foreground chrome ---- */
 .hero-foreground {
   position: absolute;
   inset: 0;
@@ -660,26 +659,28 @@ html.lenis body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: clamp(100px, 12vh, 140px) clamp(24px, 5vw, 80px) clamp(40px, 6vh, 72px);
+  padding: clamp(96px, 13vh, 140px) clamp(28px, 5vw, 72px) clamp(40px, 6vh, 64px);
   pointer-events: none;
 }
 
+/* Pill badge at top-left */
 .hero-tag {
   display: inline-flex;
   align-self: flex-start;
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 500;
   letter-spacing: 5px;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.45);
-  border: 1px solid rgba(255,255,255,0.15);
-  padding: 8px 18px;
+  color: rgba(255,255,255,0.4);
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 7px 16px;
   border-radius: 100px;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  background: rgba(255,255,255,0.04);
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
+/* Bottom row */
 .hero-bottom-row {
   display: flex;
   align-items: flex-end;
@@ -689,14 +690,11 @@ html.lenis body {
 }
 
 .hero-desc {
-  max-width: 340px;
-}
-
-.hero-desc p {
-  font-size: clamp(13px, 1.4vw, 15px);
+  font-size: clamp(12px, 1.3vw, 14px);
   font-weight: 300;
-  line-height: 1.8;
-  color: rgba(255,255,255,0.5);
+  line-height: 1.85;
+  color: rgba(255,255,255,0.42);
+  max-width: 320px;
 }
 
 .hero-v2 .hero-actions {
@@ -706,32 +704,32 @@ html.lenis body {
   pointer-events: all;
 }
 
-/* Scroll indicator */
+/* ---- Scroll indicator ---- */
 .hero-scroll {
   position: absolute;
   bottom: 40px;
-  right: 60px;
+  right: 52px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   z-index: 4;
   opacity: 1;
   transition: opacity 0.4s ease;
 }
 
 .hero-scroll span {
-  font-size: 9px;
+  font-size: 8px;
   text-transform: uppercase;
   letter-spacing: 4px;
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(255,255,255,0.25);
   writing-mode: vertical-rl;
 }
 
 .scroll-line {
   width: 1px;
-  height: 60px;
-  background: rgba(255, 255, 255, 0.15);
+  height: 56px;
+  background: rgba(255,255,255,0.12);
   position: relative;
   overflow: hidden;
 }
@@ -753,22 +751,38 @@ html.lenis body {
   100% { top: 100%; }
 }
 
-/* ---- Mobile ---- */
-@media (max-width: 768px) {
-  .hero-bg-text {
-    font-size: clamp(52px, 16vw, 90px);
-    letter-spacing: -2px;
-    padding: 0 4vw;
-    align-items: center;
+/* ---- Tablet ---- */
+@media (max-width: 900px) {
+  .hero-bg-text h1 {
+    font-size: clamp(64px, 14vw, 130px);
   }
 
   .hero-product-img {
-    width: clamp(280px, 92%, 520px);
-    max-height: 70vh;
+    width: clamp(280px, 80vw, 640px);
+  }
+}
+
+/* ---- Mobile ---- */
+@media (max-width: 600px) {
+  .hero-v2 {
+    min-height: 100svh;
+  }
+
+  .hero-bg-text h1 {
+    font-size: clamp(52px, 16vw, 90px);
+    transform: translateY(-14%);
+    white-space: normal;
+    text-align: center;
+    padding: 0 16px;
+  }
+
+  .hero-product-img {
+    width: clamp(260px, 90vw, 420px);
+    max-height: 60vh;
   }
 
   .hero-foreground {
-    padding: 100px 20px 36px;
+    padding: 88px 20px 32px;
   }
 
   .hero-bottom-row {
@@ -782,27 +796,21 @@ html.lenis body {
   }
 
   .hero-v2 .hero-actions {
-    flex-direction: column;
     width: 100%;
+    flex-direction: column;
   }
 
   .hero-v2 .hero-actions .btn {
     width: 100%;
+    text-align: center;
     justify-content: center;
   }
 
   .hero-scroll {
-    right: 20px;
-    bottom: 20px;
+    right: 16px;
+    bottom: 24px;
   }
 }
-
-@media (max-width: 480px) {
-  .hero-bg-text {
-    font-size: clamp(40px, 18vw, 72px);
-  }
-}
-
 
 
 /* =============================================

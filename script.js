@@ -67,61 +67,59 @@ document.addEventListener('DOMContentLoaded', () => {
   // =============================================
   // HERO V2 — Word Cycle Animation (Move / Stay / Meet)
   // =============================================
-  const cycleEl = document.getElementById('hero-cycle-word');
+  const cycleEl  = document.getElementById('hero-cycle-word');
+  const innerEl  = cycleEl ? cycleEl.querySelector('.hero-word-cycle-inner') : null;
 
-  if (cycleEl) {
+  if (cycleEl && innerEl) {
     const words = ['Move', 'Stay', 'Meet'];
     let currentWordIndex = 0;
 
-    // Wrap content in an inner span for animation
-    cycleEl.innerHTML = `<span class="hero-word-cycle-inner">${words[0]}</span>`;
-    const getInner = () => cycleEl.querySelector('.hero-word-cycle-inner');
-
     function cycleWord() {
       const nextIndex = (currentWordIndex + 1) % words.length;
-      const inner = getInner();
-      if (!inner) return;
 
       // Exit: slide up + fade out
-      inner.style.transition = 'transform 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease';
-      inner.style.transform = 'translateY(-110%)';
-      inner.style.opacity = '0';
+      innerEl.style.transition = 'transform 0.45s cubic-bezier(0.4,0,0.2,1), opacity 0.35s ease';
+      innerEl.style.transform  = 'translateY(-110%)';
+      innerEl.style.opacity    = '0';
 
       setTimeout(() => {
-        // Replace text and reset position (no transition)
-        inner.style.transition = 'none';
-        inner.style.transform = 'translateY(110%)';
-        inner.style.opacity = '0';
-        inner.textContent = words[nextIndex];
+        // Snap to bottom (invisible), swap text
+        innerEl.style.transition = 'none';
+        innerEl.style.transform  = 'translateY(110%)';
+        innerEl.style.opacity    = '0';
+        innerEl.textContent      = words[nextIndex];
 
-        // Force reflow before re-enabling transition
-        void inner.offsetWidth;
+        // Force reflow
+        void innerEl.offsetWidth;
 
-        // Enter: slide in from below + fade in
-        inner.style.transition = 'transform 0.55s cubic-bezier(0.16,1,0.3,1), opacity 0.45s ease';
-        inner.style.transform = 'translateY(0)';
-        inner.style.opacity = '1';
+        // Enter: slide up from below + fade in
+        innerEl.style.transition = 'transform 0.55s cubic-bezier(0.16,1,0.3,1), opacity 0.4s ease';
+        innerEl.style.transform  = 'translateY(0)';
+        innerEl.style.opacity    = '1';
 
         currentWordIndex = nextIndex;
-      }, 480);
+      }, 420);
     }
 
-    // Start cycle after 2 seconds, repeat every 2 seconds
+    // First cycle after 2s, then every 2s
     setTimeout(() => {
       cycleWord();
       setInterval(cycleWord, 2000);
     }, 2000);
   }
 
-  // Hero entry animation
-  if (hasGSAP) {
-    const heroInner = document.querySelector('.hero-word-cycle-inner');
-    const heroProd  = document.querySelector('.hero-product-img');
-    const heroFg    = document.querySelector('.hero-foreground');
+  // Hero entry animations (run after loader hides)
+  function initHeroEntryAnimations() {
+    if (!hasGSAP) return;
+    const bgText  = document.querySelector('.hero-bg-text h1');
+    const prodImg = document.querySelector('.hero-product-img');
+    const fgEl    = document.querySelector('.hero-foreground');
+    const scrollI = document.getElementById('hero-scroll-indicator');
 
-    if (heroInner) gsap.from(heroInner, { y: 60, opacity: 0, duration: 1.2, ease: 'power3.out', delay: 0.3 });
-    if (heroProd)  gsap.from(heroProd,  { y: 80, opacity: 0, duration: 1.4, ease: 'power3.out', delay: 0.1 });
-    if (heroFg)    gsap.from(heroFg,    { opacity: 0, duration: 1, ease: 'power2.out', delay: 0.6 });
+    if (bgText)  gsap.from(bgText,  { y: 50,  opacity: 0, duration: 1.1, ease: 'power3.out', delay: 0.15 });
+    if (prodImg) gsap.from(prodImg, { y: 60,  opacity: 0, duration: 1.3, ease: 'power3.out', delay: 0.05 });
+    if (fgEl)    gsap.from(fgEl,    { opacity: 0,          duration: 1.0, ease: 'power2.out', delay: 0.5  });
+    if (scrollI) gsap.from(scrollI, { opacity: 0, y: 12,  duration: 1.0, ease: 'power2.out', delay: 1.0  });
   }
 
 
@@ -137,7 +135,10 @@ document.addEventListener('DOMContentLoaded', () => {
       loader.classList.add('hidden');
       document.body.classList.remove('locked');
       if (lenis) lenis.start();
-      if (hasGSAP) initEntryAnimations();
+      if (hasGSAP) {
+        initEntryAnimations();
+        initHeroEntryAnimations();
+      }
     }, 1400);
   });
 
@@ -154,8 +155,8 @@ document.addEventListener('DOMContentLoaded', () => {
   function initEntryAnimations() {
     if (!hasGSAP) return;
     gsap.from('.nav-container', { y: -40, opacity: 0, duration: 1, ease: 'power3.out' });
-    gsap.from('#hero-scroll-indicator', { opacity: 0, y: 20, duration: 1.2, delay: 0.9, ease: 'power2.out' });
   }
+
 
 
   // =============================================

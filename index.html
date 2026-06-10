@@ -68,32 +68,36 @@
     </ul>
   </nav>
 
-  <!-- ========== HERO (Static — X6 Image with Word Cycle) ========== -->
+  <!-- ========== HERO V2 — Centered Pod + Giant Background Text ========== -->
   <section class="hero-v2" id="hero">
 
-    <!-- Layer 1: Giant background text (behind product) -->
+    <!-- Layer 1: Giant background text (z-index 1) -->
     <div class="hero-bg-text" aria-hidden="true">
-      <span class="hero-word-cycle" id="hero-cycle-word">Move</span><span class="hero-word-static">Anywhere</span>
+      <h1>
+        <span class="hero-word-cycle" id="hero-cycle-word"><span class="hero-word-cycle-inner">Move</span></span><span class="hero-word-static"> Anywhere</span>
+      </h1>
     </div>
 
-    <!-- Layer 2: Product image (sits on top of text) -->
+    <!-- Layer 2: Pod image (z-index 2) -->
     <div class="hero-product-wrap">
-      <img src="images/X6.png" alt="Xpod X6 — Portable Space" class="hero-product-img" id="hero-product-img">
+      <img src="images/X6-REMOVED.png" alt="Xpod X6 — Portable Space" class="hero-product-img" id="hero-product-img">
     </div>
 
-    <!-- Layer 3: Foreground UI (above product) -->
+    <!-- Layer 3: Foreground chrome (z-index 3) -->
     <div class="hero-foreground">
-      <div class="hero-tag">Portable Spaces</div>
 
+      <!-- Top pill badge -->
+      <div class="hero-tag" id="hero-tag">Portable Spaces</div>
+
+      <!-- Bottom row: description left, buttons right -->
       <div class="hero-bottom-row">
-        <div class="hero-desc">
-          <p>Architecturally refined modular spaces built<br>for flexibility, longevity, and visual impact.</p>
-        </div>
-        <div class="hero-actions">
-          <a href="#products" class="btn btn-white" id="hero-explore-btn">Explore Xpods</a>
-          <a href="#contact" class="btn btn-outline-white" id="hero-book-btn">Book Now</a>
+        <p class="hero-desc" id="hero-desc">Architecturally refined modular spaces<br>built for flexibility and visual impact.</p>
+        <div class="hero-actions" id="hero-actions">
+          <a href="#products" class="btn btn-white">Explore Xpods</a>
+          <a href="#contact" class="btn btn-outline-white">Book Now</a>
         </div>
       </div>
+
     </div>
 
     <!-- Scroll indicator -->
@@ -103,6 +107,7 @@
     </div>
 
   </section>
+
 
   <!-- ========== MARQUEE ========== -->
   <div class="marquee-strip">
