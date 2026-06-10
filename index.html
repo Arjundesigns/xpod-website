@@ -68,34 +68,40 @@
     </ul>
   </nav>
 
-  <!-- ========== HERO (Scroll Animation) ========== -->
-  <section class="hero-sequence" id="hero">
-    <div class="hero-sticky">
-      <canvas id="hero-canvas"></canvas>
-      <div class="hero-overlay"></div>
+  <!-- ========== HERO (Static — X6 Image with Word Cycle) ========== -->
+  <section class="hero-v2" id="hero">
 
-      <!-- Text overlays that appear during scroll -->
-      <div class="hero-text-layer" id="hero-text-1">
-        <p class="hero-label">Portable Spaces</p>
-        <h1 class="hero-title">
-          <span class="title-line">Move</span>
-          <span class="title-line">Anywhere.</span>
-        </h1>
-      </div>
+    <!-- Layer 1: Giant background text (behind product) -->
+    <div class="hero-bg-text" aria-hidden="true">
+      <span class="hero-word-cycle" id="hero-cycle-word">Move</span><span class="hero-word-static">Anywhere</span>
+    </div>
 
-      <div class="hero-text-layer hero-text-bottom" id="hero-text-2">
-        <p class="hero-subtitle">Architecturally refined modular spaces built for flexibility, longevity, and visual impact.</p>
+    <!-- Layer 2: Product image (sits on top of text) -->
+    <div class="hero-product-wrap">
+      <img src="images/X6.png" alt="Xpod X6 — Portable Space" class="hero-product-img" id="hero-product-img">
+    </div>
+
+    <!-- Layer 3: Foreground UI (above product) -->
+    <div class="hero-foreground">
+      <div class="hero-tag">Portable Spaces</div>
+
+      <div class="hero-bottom-row">
+        <div class="hero-desc">
+          <p>Architecturally refined modular spaces built<br>for flexibility, longevity, and visual impact.</p>
+        </div>
         <div class="hero-actions">
-          <a href="#products" class="btn btn-white">Explore Xpods</a>
-          <a href="#contact" class="btn btn-outline-white">Book Now</a>
+          <a href="#products" class="btn btn-white" id="hero-explore-btn">Explore Xpods</a>
+          <a href="#contact" class="btn btn-outline-white" id="hero-book-btn">Book Now</a>
         </div>
       </div>
-
-      <div class="hero-scroll" id="hero-scroll-indicator">
-        <div class="scroll-line"></div>
-        <span>Scroll</span>
-      </div>
     </div>
+
+    <!-- Scroll indicator -->
+    <div class="hero-scroll" id="hero-scroll-indicator">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+
   </section>
 
   <!-- ========== MARQUEE ========== -->
