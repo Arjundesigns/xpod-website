@@ -822,6 +822,12 @@ html.lenis body {
     min-height: 100svh;
   }
 
+  /* Shift the background and foreground product images to show the left side of the pod */
+  .hero-bg-img,
+  .hero-pod-img {
+    object-position: 25% 40%;
+  }
+
   .hero-bg-overlay {
     background:
       linear-gradient(to bottom,
@@ -843,21 +849,28 @@ html.lenis body {
     line-height: 1.15;
   }
 
+  /* Shift bottom wrap higher on mobile screen */
   .hero-bottom-wrap {
-    bottom: 5vh;
-    padding: 0 20px;
+    bottom: 12vh;
+    padding: 0 24px;
     gap: 16px;
   }
 
+  /* Make buttons stacked, larger, and centered on mobile */
   .hero-actions {
-    flex-direction: row;
+    flex-direction: column;
     gap: 12px;
+    width: 100%;
+    max-width: 290px;
+    margin: 0 auto;
   }
 
   .hero-cta-primary,
   .hero-cta-secondary {
-    padding: 13px 24px;
-    font-size: 10px;
+    width: 100%;
+    text-align: center;
+    padding: 16px 32px;
+    font-size: 11px;
     letter-spacing: 2px;
   }
 
