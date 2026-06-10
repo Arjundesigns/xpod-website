@@ -65,64 +65,61 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // =============================================
-  // HERO — Word Cycle Animation (Move / Stay / Meet)
+  // HERO — Cinematic Entry Animations (called after loader)
   // =============================================
-  const cycleWordEl = document.getElementById('hero-cycle-word');
-  const wordInnerEl = cycleWordEl ? cycleWordEl.querySelector('.hero-word-inner') : null;
-
-  if (cycleWordEl && wordInnerEl) {
-    const words = ['Move', 'Stay', 'Meet'];
-    let wordIndex = 0;
-
-    function cycleNext() {
-      const next = (wordIndex + 1) % words.length;
-
-      // Slide current word UP and out
-      wordInnerEl.style.transition = 'transform 0.42s cubic-bezier(0.4,0,0.2,1), opacity 0.35s ease';
-      wordInnerEl.style.transform  = 'translateY(-115%)';
-      wordInnerEl.style.opacity    = '0';
-
-      setTimeout(() => {
-        wordInnerEl.style.transition = 'none';
-        wordInnerEl.style.transform  = 'translateY(115%)';
-        wordInnerEl.style.opacity    = '0';
-        wordInnerEl.textContent      = words[next];
-
-        void wordInnerEl.offsetWidth; // force reflow
-
-        // Slide new word UP into place
-        wordInnerEl.style.transition = 'transform 0.52s cubic-bezier(0.16,1,0.3,1), opacity 0.4s ease';
-        wordInnerEl.style.transform  = 'translateY(0)';
-        wordInnerEl.style.opacity    = '1';
-
-        wordIndex = next;
-      }, 390);
-    }
-
-    // Start after 2s, cycle every 2s
-    setTimeout(() => {
-      cycleNext();
-      setInterval(cycleNext, 2000);
-    }, 2000);
-  }
-
-  // Hero entry animations (called after loader)
   function initHeroEntryAnimations() {
     if (!hasGSAP) return;
-    const textEl   = document.querySelector('.hero-big-text');
-    const podEl    = document.querySelector('.hero-pod-img');
-    const chromeEl = document.querySelector('.hero-chrome');
-    const scrollEl = document.getElementById('hero-scroll-indicator');
+    const bgEl      = document.querySelector('.hero-bg-img');
+    const podEl     = document.querySelector('.hero-pod-img');
+    const titleEl   = document.querySelector('.hero-title');
+    const actionsEl = document.querySelector('.hero-actions');
+    const descEl    = document.querySelector('.hero-desc');
+    const scrollEl  = document.getElementById('hero-scroll-indicator');
 
-    if (textEl)   gsap.from(textEl,   { y: 40, opacity: 0, duration: 1.1, ease: 'power3.out', delay: 0.2 });
-    if (podEl)    gsap.from(podEl,    { y: 50, opacity: 0, duration: 1.3, ease: 'power3.out', delay: 0.0 });
-    if (chromeEl) gsap.from(chromeEl, { opacity: 0,        duration: 1.0, ease: 'power2.out', delay: 0.5 });
-    if (scrollEl) gsap.from(scrollEl, { opacity: 0, y: 10, duration: 0.9, ease: 'power2.out', delay: 1.1 });
+    // Cinematic zoom out + blur fade for background and pod
+    if (bgEl) {
+      gsap.fromTo(bgEl, 
+        { scale: 1.08, filter: 'blur(8px)' }, 
+        { scale: 1.0, filter: 'blur(0px)', duration: 1.5, ease: 'power2.out' }
+      );
+    }
+    if (podEl) {
+      gsap.fromTo(podEl, 
+        { scale: 1.08, filter: 'blur(8px)' }, 
+        { scale: 1.0, filter: 'blur(0px)', duration: 1.5, ease: 'power2.out' }
+      );
+    }
+
+    // Elegant fade-in of text content layers
+    if (titleEl) {
+      gsap.fromTo(titleEl, 
+        { opacity: 0, y: 25 }, 
+        { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out', delay: 0.2 }
+      );
+    }
+    if (actionsEl) {
+      gsap.fromTo(actionsEl, 
+        { opacity: 0, y: 15 }, 
+        { opacity: 1, y: 0, duration: 1.0, ease: 'power3.out', delay: 0.5 }
+      );
+    }
+    if (descEl) {
+      gsap.fromTo(descEl, 
+        { opacity: 0, y: 10 }, 
+        { opacity: 1, y: 0, duration: 1.0, ease: 'power3.out', delay: 0.7 }
+      );
+    }
+    if (scrollEl) {
+      gsap.fromTo(scrollEl, 
+        { opacity: 0, y: 10 }, 
+        { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 1.1 }
+      );
+    }
   }
 
 
   // =============================================
-  // PAGE LOADER
+  // PAGE LOADER & ENTRY TRIGGER
   // =============================================
   const loader = document.getElementById('loader');
   document.body.classList.add('locked');
@@ -141,232 +138,21 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   setTimeout(() => {
-    loader.classList.add('hidden');
-    document.body.classList.remove('locked');
-    if (lenis) lenis.start();
+    if (loader && !loader.classList.contains('hidden')) {
+      loader.classList.add('hidden');
+      document.body.classList.remove('locked');
+      if (lenis) lenis.start();
+    }
   }, 3500);
 
 
   // =============================================
-  // GSAP — Entry Animations (after loader)
+  // GSAP — Global Navigation Entry Animation
   // =============================================
   function initEntryAnimations() {
     if (!hasGSAP) return;
-    gsap.from('.nav-container', { y: -40, opacity: 0, duration: 1, ease: 'power3.out' });
-    gsap.from('#hero-scroll-indicator', { opacity: 0, y: 20, duration: 1, delay: 0.6, ease: 'power2.out' });
+    gsap.from('.nav-container', { y: -40, opacity: 0, duration: 1.2, ease: 'power3.out' });
   }
-
-
-  // =============================================
-  // GSAP — Scroll-Triggered Reveals
-  // =============================================
-  if (hasGSAP) {
-
-    // Helper: set initial state and animate
-    function scrollReveal(selector, fromVars, triggerOptions = {}) {
-      gsap.utils.toArray(selector).forEach(el => {
-        gsap.set(el, { opacity: 0, ...fromVars });
-        gsap.to(el, {
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 88%',
-            toggleActions: 'play none none none',
-            ...triggerOptions,
-          },
-          opacity: 1,
-          x: 0, y: 0, scale: 1,
-          duration: 0.9,
-          ease: 'power3.out',
-          ...triggerOptions.tweenVars,
-        });
-      });
-    }
-
-    // Section labels
-    scrollReveal('.section-label', { y: 30 });
-
-    // Section titles
-    scrollReveal('.section-title', { y: 60 }, { start: 'top 85%', tweenVars: { duration: 1 } });
-
-    // Highlights — Pinned Scroll Container
-    const highlightsSection = document.querySelector('.highlights-pinned');
-    const capsulesWrapper = document.querySelector('.highlights-capsules-wrapper');
-    const capsules = gsap.utils.toArray('.highlight-capsule');
-    
-    if (highlightsSection && capsulesWrapper && capsules.length) {
-      gsap.fromTo(capsules, 
-        { opacity: 0, y: 60, scale: 0.95 },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: highlightsSection,
-            start: 'top 75%',
-            toggleActions: 'play none none none'
-          }
-        }
-      );
-    }
-
-    // Products hero image
-    // Lineup Panels — Parallax & Card Reveal
-    gsap.utils.toArray('.lineup-panel').forEach(panel => {
-      const img = panel.querySelector('.lineup-img');
-      const card = panel.querySelector('.lineup-card');
-
-      // Parallax Image
-      if (img) {
-        gsap.to(img, {
-          yPercent: 10,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: panel,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: true
-          }
-        });
-      }
-
-      // Card Reveal
-      if (card) {
-        gsap.from(card, {
-          y: 60,
-          opacity: 0,
-          duration: 1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: panel,
-            start: 'top 75%',
-            toggleActions: 'play none none none'
-          }
-        });
-      }
-    });
-    // About image — slide from left
-    gsap.set('.about-image', { opacity: 0, x: -80 });
-    ScrollTrigger.create({
-      trigger: '.about-grid',
-      start: 'top 75%',
-      onEnter: () => {
-        gsap.to('.about-image', {
-          opacity: 1, x: 0,
-          duration: 1.1,
-          ease: 'power3.out',
-        });
-      },
-      once: true,
-    });
-
-    // About text — staggered
-    const aboutItems = gsap.utils.toArray('.about-content .section-label, .about-content .section-title, .about-text, .about-stats');
-    gsap.set(aboutItems, { opacity: 0, y: 50 });
-    ScrollTrigger.create({
-      trigger: '.about-content',
-      start: 'top 80%',
-      onEnter: () => {
-        gsap.to(aboutItems, {
-          opacity: 1, y: 0,
-          duration: 0.9,
-          stagger: 0.12,
-          ease: 'power3.out',
-        });
-      },
-      once: true,
-    });
-
-    // Feature cards — staggered with scale
-    gsap.set('.feature-card', { opacity: 0, y: 60, scale: 0.95 });
-    ScrollTrigger.create({
-      trigger: '.features-grid',
-      start: 'top 80%',
-      onEnter: () => {
-        gsap.to('.feature-card', {
-          opacity: 1, y: 0, scale: 1,
-          duration: 0.8,
-          stagger: 0.12,
-          ease: 'power3.out',
-        });
-      },
-      once: true,
-    });
-
-    // CTA content
-    gsap.set('.cta-content', { opacity: 0, y: 60 });
-    ScrollTrigger.create({
-      trigger: '.cta-section',
-      start: 'top 70%',
-      onEnter: () => {
-        gsap.to('.cta-content', {
-          opacity: 1, y: 0,
-          duration: 1,
-          ease: 'power3.out',
-        });
-      },
-      once: true,
-    });
-
-    // Footer
-    gsap.set('.footer-top', { opacity: 0, y: 40 });
-    ScrollTrigger.create({
-      trigger: '.footer',
-      start: 'top 85%',
-      onEnter: () => {
-        gsap.to('.footer-top', {
-          opacity: 1, y: 0,
-          duration: 0.9,
-          ease: 'power3.out',
-        });
-      },
-      once: true,
-    });
-
-
-    // =============================================
-    // GSAP — Parallax Effects
-    // =============================================
-
-    // About image parallax
-    gsap.to('.about-image img', {
-      scrollTrigger: {
-        trigger: '.about',
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 1.5,
-      },
-      y: -60,
-      ease: 'none',
-    });
-
-    // CTA background zoom
-    gsap.to('.cta-bg-img', {
-      scrollTrigger: {
-        trigger: '.cta-section',
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 2,
-      },
-      scale: 1.15,
-      ease: 'none',
-    });
-
-    // Marquee acceleration
-    gsap.to('.marquee-track', {
-      scrollTrigger: {
-        trigger: '.marquee-strip',
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 1,
-      },
-      x: -100,
-      ease: 'none',
-    });
-
-  } // end hasGSAP
 
 
   // =============================================
