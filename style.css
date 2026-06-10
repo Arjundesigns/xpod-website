@@ -619,15 +619,15 @@ html.lenis body {
   inset: 0;
   z-index: 2;
   display: flex;
-  align-items: center;          /* vertically center to match pod */
+  align-items: center;
   justify-content: center;
   pointer-events: none;
-  /* Shift text slightly above true center so it crosses the pod's midline */
-  padding-bottom: 6vh;
+  /* Align vertically with the pod in X6.png — pod sits ~35-55% from top */
+  padding-bottom: 14vh;
 }
 
 .hero-big-text {
-  font-size: clamp(72px, 14.5vw, 210px);
+  font-size: clamp(42px, 7vw, 110px);
   font-weight: 900;
   line-height: 1;
   letter-spacing: -0.02em;
@@ -635,8 +635,7 @@ html.lenis body {
   white-space: nowrap;
   text-align: center;
   margin: 0;
-  /* Slight text-shadow to lift it off the background */
-  text-shadow: 0 2px 40px rgba(0,0,0,0.25);
+  text-shadow: 0 2px 30px rgba(0,0,0,0.3);
 }
 
 /* Clip slot so animated word doesn't spill vertically */
@@ -661,26 +660,20 @@ html.lenis body {
   display: inline;
 }
 
-/* --- Layer 3: Transparent pod (ON TOP of text) --- */
+/* --- Layer 3: Transparent pod (ON TOP of text, SAME SIZE as background) --- */
 .hero-pod-wrap {
   position: absolute;
   inset: 0;
   z-index: 3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   pointer-events: none;
-  /* Shift pod slightly down so it sits on "ground" plane of bg image */
-  padding-top: 6vh;
 }
 
 .hero-pod-img {
-  width: clamp(340px, 62vw, 900px);
-  max-height: 75vh;
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
   display: block;
-  /* Drop shadow gives depth, separates pod from text */
-  filter: drop-shadow(0 20px 60px rgba(0,0,0,0.45));
 }
 
 /* --- Layer 4: UI chrome --- */
@@ -785,23 +778,20 @@ html.lenis body {
 /* --- Mobile --- */
 @media (max-width: 768px) {
   .hero-big-text {
-    font-size: clamp(48px, 15vw, 90px);
-    white-space: normal;
-    text-align: center;
-    padding: 0 12px;
+    font-size: clamp(32px, 9vw, 64px);
+    white-space: nowrap;
   }
 
   .hero-pod-img {
-    width: clamp(280px, 88vw, 480px);
-    max-height: 55vh;
+    object-position: center 50%;
   }
 
   .hero-text-wrap {
-    padding-bottom: 10vh;
+    padding-bottom: 8vh;
   }
 
   .hero-pod-wrap {
-    padding-top: 8vh;
+    padding-top: 0;
   }
 
   .hero-chrome {
