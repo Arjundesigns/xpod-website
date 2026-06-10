@@ -663,7 +663,6 @@ html.lenis body {
   line-height: 1.1;
   letter-spacing: -0.015em;
   color: var(--white);
-  text-transform: uppercase;
   text-shadow: 
     0 2px 10px rgba(0,0,0,0.3),
     0 10px 40px rgba(0,0,0,0.6);
