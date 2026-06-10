@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Xpod — Portable Spaces. Architecturally refined modular pods built for flexibility, longevity, and visual impact.">
+  <title>Xpod® — Portable Spaces</title>
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Xpod® — Portable Spaces">
+  <meta property="og:description" content="Architecturally refined modular spaces built for flexibility, longevity, and visual impact.">
+  <meta property="og:image" content="images/ALL.png">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="images/LOGO-PORTABLE-SPACES.png" type="image/png">
+
+  <!-- GSAP + ScrollTrigger + Lenis for premium scroll effects -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body>
+
+  <!-- ========== CURSOR ========== -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cursor-dot"></div>
+
+  <!-- ========== LOADER ========== -->
+  <div class="loader" id="loader">
+    <div class="loader-inner">
+      <div class="loader-line"></div>
+      <span class="loader-text">XPOD</span>
+    </div>
+  </div>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <ul class="nav-links nav-left" id="nav-links-left">
+        <li><a href="#hero" data-nav>Home</a></li>
+        <li><a href="#products" data-nav>Xpods</a></li>
+        <li><a href="#about" data-nav>About</a></li>
+      </ul>
+      <a href="#" class="nav-logo" id="nav-logo">
+        <img src="images/LOGO-FOR-EXBTN.png" alt="Xpod Logo" class="nav-logo-white">
+        <img src="images/LOGO-PORTABLE-SPACES.png" alt="Xpod Logo" class="nav-logo-black">
+      </a>
+      <div class="nav-right">
+        <ul class="nav-links" id="nav-links-right">
+          <li><a href="#features" data-nav>Why Xpod</a></li>
+          <li><a href="#contact" data-nav>Contact</a></li>
+        </ul>
+        <a href="#contact" class="nav-cta" data-nav>Book Now</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <!-- Mobile menu -->
+    <ul class="nav-mobile" id="nav-mobile">
+      <li><a href="#hero" data-nav>Home</a></li>
+      <li><a href="#products" data-nav>Xpods</a></li>
+      <li><a href="#about" data-nav>About</a></li>
+      <li><a href="#features" data-nav>Why Xpod</a></li>
+      <li><a href="#contact" data-nav>Contact</a></li>
+      <li><a href="#contact" class="nav-cta-mobile" data-nav>Book Now</a></li>
+    </ul>
+  </nav>
+
+  <!-- ========== HERO (Scroll Animation) ========== -->
+  <section class="hero-sequence" id="hero">
+    <div class="hero-sticky">
+      <canvas id="hero-canvas"></canvas>
+      <div class="hero-overlay"></div>
+
+      <!-- Text overlays that appear during scroll -->
+      <div class="hero-text-layer" id="hero-text-1">
+        <p class="hero-label">Portable Spaces</p>
+        <h1 class="hero-title">
+          <span class="title-line">Move</span>
+          <span class="title-line">Anywhere.</span>
+        </h1>
+      </div>
+
+      <div class="hero-text-layer hero-text-bottom" id="hero-text-2">
+        <p class="hero-subtitle">Architecturally refined modular spaces built for flexibility, longevity, and visual impact.</p>
+        <div class="hero-actions">
+          <a href="#products" class="btn btn-white">Explore Xpods</a>
+          <a href="#contact" class="btn btn-outline-white">Book Now</a>
+        </div>
+      </div>
+
+      <div class="hero-scroll" id="hero-scroll-indicator">
+        <div class="scroll-line"></div>
+        <span>Scroll</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== MARQUEE ========== -->
+  <div class="marquee-strip">
+    <div class="marquee-track">
+      <span>Premium Modular Architecture</span>
+      <span>·</span>
+      <span>Portable Spaces</span>
+      <span>·</span>
+      <span>Move Anywhere</span>
+      <span>·</span>
+      <span>Functional Luxury</span>
+      <span>·</span>
+      <span>Premium Modular Architecture</span>
+      <span>·</span>
+      <span>Portable Spaces</span>
+      <span>·</span>
+      <span>Move Anywhere</span>
+      <span>·</span>
+      <span>Functional Luxury</span>
+      <span>·</span>
+    </div>
+  </div>
+
+  <!-- ========== HIGHLIGHTS — Features with Background Image ========== -->
+  <section class="highlights-pinned" id="highlights">
+    <div class="highlights-bg">
+      <img src="images/FOR FEATURE CAPSULE.jpeg" alt="Xpod Features" class="highlights-bg-img">
+      <div class="highlights-overlay"></div>
+    </div>
+    
+    <div class="container highlights-scroll-container">
+      <div class="highlights-capsules-wrapper">
+        <div class="highlight-capsule" id="hl-1">
+          <div class="capsule-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7" rx="1"/>
+              <rect x="14" y="3" width="7" height="7" rx="1"/>
+              <rect x="3" y="14" width="7" height="7" rx="1"/>
+              <rect x="14" y="14" width="7" height="7" rx="1"/>
+              <path d="M10 6h4M6 10v4M18 10v4M10 18h4" stroke-width="1" opacity="0.5"/>
+            </svg>
+          </div>
+          <div class="capsule-content">
+            <span class="capsule-text">Customisable Size &amp; Design</span>
+            <span class="capsule-desc">Tailored dimensions and finishes to match your vision</span>
+          </div>
+        </div>
+        
+        <div class="highlight-capsule" id="hl-2">
+          <div class="capsule-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+              <path d="M2 17l10 5 10-5"/>
+              <path d="M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <div class="capsule-content">
+            <span class="capsule-text">Make in India Product</span>
+            <span class="capsule-desc">Proudly engineered and manufactured in India</span>
+          </div>
+        </div>
+        
+        <div class="highlight-capsule" id="hl-3">
+          <div class="capsule-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+          </div>
+          <div class="capsule-content">
+            <span class="capsule-text">India's 1st Dismantlable Pods</span>
+            <span class="capsule-desc">Relocate, reassemble, and redeploy with zero waste</span>
+          </div>
+        </div>
+        
+        <div class="highlight-capsule" id="hl-4">
+          <div class="capsule-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+              <path d="M9 12l2 2 4-4"/>
+            </svg>
+          </div>
+          <div class="capsule-content">
+            <span class="capsule-text">25-Year Warranty</span>
+            <span class="capsule-desc">Built to last with structural integrity guaranteed</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PRODUCTS ========== -->
+  <section class="products" id="products">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">Our Collection</p>
+        <h2 class="section-title">The Xpod Lineup</h2>
+      </div>
+
+      <!-- XPOD X7 PANEL -->
+      <div class="lineup-panel" id="lineup-x7">
+        <div class="lineup-image-wrap">
+          <img src="images/X7.png" alt="Xpod X7 — Homes & Resort Pod" class="lineup-img">
+        </div>
+        <div class="lineup-card">
+          <div class="lineup-card-content">
+            <h3>Xpod X7</h3>
+            <p class="lineup-subtitle">Premium Homes & Resort Pod</p>
+            <p class="lineup-desc">Our flagship model offering expansive space, featuring a full bedroom, living area, and premium bathroom. Designed for ultimate comfort in any environment.</p>
+            <ul class="lineup-specs">
+              <li><span>Size:</span> 10m x 3.3m</li>
+              <li><span>Capacity:</span> 2-4 Persons</li>
+            </ul>
+            <a href="#" class="btn btn-primary lineup-btn">Explore X7</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- XPOD X6 PANEL -->
+      <div class="lineup-panel reverse" id="lineup-x6">
+        <div class="lineup-image-wrap">
+          <img src="images/X6.png" alt="Xpod X6 — Homes & Resort Pod" class="lineup-img">
+        </div>
+        <div class="lineup-card">
+          <div class="lineup-card-content">
+            <h3>Xpod X6</h3>
+            <p class="lineup-subtitle">Compact Living & Resort Suite</p>
+            <p class="lineup-desc">The perfect balance of efficiency and luxury. X6 provides a comfortable living space with a dedicated sleep zone and smart storage solutions.</p>
+            <ul class="lineup-specs">
+              <li><span>Size:</span> 8m x 3.3m</li>
+              <li><span>Capacity:</span> 2 Persons</li>
+            </ul>
+            <a href="#" class="btn btn-primary lineup-btn">Explore X6</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- XPOD X5 PANEL -->
+      <div class="lineup-panel" id="lineup-x5">
+        <div class="lineup-image-wrap">
+          <img src="images/X5.png" alt="Xpod X5 — Office Pod" class="lineup-img">
+        </div>
+        <div class="lineup-card">
+          <div class="lineup-card-content">
+            <h3>Xpod X5</h3>
+            <p class="lineup-subtitle">Executive Office & Studio</p>
+            <p class="lineup-desc">A refined workspace designed for focus and productivity. Acoustic insulation and integrated workspace systems make it the ideal backyard office or studio.</p>
+            <ul class="lineup-specs">
+              <li><span>Size:</span> 5.8m x 2.25m</li>
+              <li><span>Capacity:</span> 1-2 Persons</li>
+            </ul>
+            <a href="#" class="btn btn-primary lineup-btn">Explore X5</a>
+          </div>
+        </div>
+      </div>
+  </section>
+
+  <!-- ========== REAL PRODUCT VIDEOS ========== -->
+  <section class="product-videos" id="reels">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">Real Life</p>
+        <h2 class="section-title">See Xpod in Action.</h2>
+      </div>
+      
+      <div class="videos-marquee-container">
+        <div class="videos-row">
+          <!-- Video Card 1 -->
+          <a href="https://www.instagram.com/p/DS-Dz_Sk4YC/" target="_blank" class="video-card" aria-label="Watch on Instagram">
+            <div class="video-wrap">
+              <video src="videos/video1.mp4" class="video-placeholder" autoplay loop muted playsinline></video>
+              <div class="video-overlay">
+                <div class="video-play-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--white)"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <p class="video-caption">Watch on Instagram ↗</p>
+              </div>
+            </div>
+          </a>
+
+          <!-- Video Card 2 -->
+          <a href="https://www.instagram.com/p/DMDPaAhzklN/" target="_blank" class="video-card" aria-label="Watch on Instagram">
+            <div class="video-wrap">
+              <video src="videos/video2.mp4" class="video-placeholder" autoplay loop muted playsinline></video>
+              <div class="video-overlay">
+                <div class="video-play-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--white)"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <p class="video-caption">Watch on Instagram ↗</p>
+              </div>
+            </div>
+          </a>
+
+          <!-- Video Card 3 -->
+          <a href="https://www.instagram.com/p/DUAHQ0rE3k2/" target="_blank" class="video-card" aria-label="Watch on Instagram">
+            <div class="video-wrap">
+              <video src="videos/video3.mp4" class="video-placeholder" autoplay loop muted playsinline></video>
+              <div class="video-overlay">
+                <div class="video-play-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--white)"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <p class="video-caption">Watch on Instagram ↗</p>
+              </div>
+            </div>
+          </a>
+
+          <!-- Video Card 4 -->
+          <a href="https://www.instagram.com/p/DT2HlEcEyiH/" target="_blank" class="video-card" aria-label="Watch on Instagram">
+            <div class="video-wrap">
+              <video src="videos/video4.mp4" class="video-placeholder" autoplay loop muted playsinline></video>
+              <div class="video-overlay">
+                <div class="video-play-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--white)"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <p class="video-caption">Watch on Instagram ↗</p>
+              </div>
+            </div>
+          </a>
+
+          <!-- Video Card 5 -->
+          <a href="https://www.instagram.com/p/DTvDGcbk3Oz/" target="_blank" class="video-card" aria-label="Watch on Instagram">
+            <div class="video-wrap">
+              <video src="videos/video5.mp4" class="video-placeholder" autoplay loop muted playsinline></video>
+              <div class="video-overlay">
+                <div class="video-play-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--white)"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <p class="video-caption">Watch on Instagram ↗</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        
+        <!-- DUPLICATE ROW FOR SEAMLESS LOOPING -->
+        <div class="videos-row" aria-hidden="true">
+          <!-- Video Card 1 -->
+          <a href="https://www.instagram.com/p/DS-Dz_Sk4YC/" target="_blank" class="video-card" aria-label="Watch on Instagram">
+            <div class="video-wrap">
+              <video src="videos/video1.mp4" class="video-placeholder" autoplay loop muted playsinline></video>
+              <div class="video-overlay">
+                <div class="video-play-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--white)"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <p class="video-caption">Watch on Instagram ↗</p>
+              </div>
+            </div>
+          </a>
+
+          <!-- Video Card 2 -->
+          <a href="https://www.instagram.com/p/DMDPaAhzklN/" target="_blank" class="video-card" aria-label="Watch on Instagram">
+            <div class="video-wrap">
+              <video src="videos/video2.mp4" class="video-placeholder" autoplay loop muted playsinline></video>
+              <div class="video-overlay">
+                <div class="video-play-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--white)"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <p class="video-caption">Watch on Instagram ↗</p>
+              </div>
+            </div>
+          </a>
+
+          <!-- Video Card 3 -->
+          <a href="https://www.instagram.com/p/DUAHQ0rE3k2/" target="_blank" class="video-card" aria-label="Watch on Instagram">
+            <div class="video-wrap">
+              <video src="videos/video3.mp4" class="video-placeholder" autoplay loop muted playsinline></video>
+              <div class="video-overlay">
+                <div class="video-play-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--white)"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <p class="video-caption">Watch on Instagram ↗</p>
+              </div>
+            </div>
+          </a>
+
+          <!-- Video Card 4 -->
+          <a href="https://www.instagram.com/p/DT2HlEcEyiH/" target="_blank" class="video-card" aria-label="Watch on Instagram">
+            <div class="video-wrap">
+              <video src="videos/video4.mp4" class="video-placeholder" autoplay loop muted playsinline></video>
+              <div class="video-overlay">
+                <div class="video-play-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--white)"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <p class="video-caption">Watch on Instagram ↗</p>
+              </div>
+            </div>
+          </a>
+
+          <!-- Video Card 5 -->
+          <a href="https://www.instagram.com/p/DTvDGcbk3Oz/" target="_blank" class="video-card" aria-label="Watch on Instagram">
+            <div class="video-wrap">
+              <video src="videos/video5.mp4" class="video-placeholder" autoplay loop muted playsinline></video>
+              <div class="video-overlay">
+                <div class="video-play-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--white)"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <p class="video-caption">Watch on Instagram ↗</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        
+        <!-- THIRD ROW STRIP FOR ULTRA-WIDE SCREENS -->
+        <div class="videos-row" aria-hidden="true">
+          <!-- Video Card 1 -->
+          <a href="https://www.instagram.com/p/DS-Dz_Sk4YC/" target="_blank" class="video-card" aria-label="Watch on Instagram">
+            <div class="video-wrap">
+              <video src="videos/video1.mp4" class="video-placeholder" autoplay loop muted playsinline></video>
+              <div class="video-overlay">
+                <div class="video-play-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--white)"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <p class="video-caption">Watch on Instagram ↗</p>
+              </div>
+            </div>
+          </a>
+
+          <!-- Video Card 2 -->
+          <a href="https://www.instagram.com/p/DMDPaAhzklN/" target="_blank" class="video-card" aria-label="Watch on Instagram">
+            <div class="video-wrap">
+              <video src="videos/video2.mp4" class="video-placeholder" autoplay loop muted playsinline></video>
+              <div class="video-overlay">
+                <div class="video-play-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--white)"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <p class="video-caption">Watch on Instagram ↗</p>
+              </div>
+            </div>
+          </a>
+
+          <!-- Video Card 3 -->
+          <a href="https://www.instagram.com/p/DUAHQ0rE3k2/" target="_blank" class="video-card" aria-label="Watch on Instagram">
+            <div class="video-wrap">
+              <video src="videos/video3.mp4" class="video-placeholder" autoplay loop muted playsinline></video>
+              <div class="video-overlay">
+                <div class="video-play-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--white)"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <p class="video-caption">Watch on Instagram ↗</p>
+              </div>
+            </div>
+          </a>
+
+          <!-- Video Card 4 -->
+          <a href="https://www.instagram.com/p/DT2HlEcEyiH/" target="_blank" class="video-card" aria-label="Watch on Instagram">
+            <div class="video-wrap">
+              <video src="videos/video4.mp4" class="video-placeholder" autoplay loop muted playsinline></video>
+              <div class="video-overlay">
+                <div class="video-play-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--white)"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <p class="video-caption">Watch on Instagram ↗</p>
+              </div>
+            </div>
+          </a>
+
+          <!-- Video Card 5 -->
+          <a href="https://www.instagram.com/p/DTvDGcbk3Oz/" target="_blank" class="video-card" aria-label="Watch on Instagram">
+            <div class="video-wrap">
+              <video src="videos/video5.mp4" class="video-placeholder" autoplay loop muted playsinline></video>
+              <div class="video-overlay">
+                <div class="video-play-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--white)"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <p class="video-caption">Watch on Instagram ↗</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CUSTOMIZATION (NEW - VISUAL ONLY) ========== -->
+  <section class="customization" id="custom">
+    <!-- Massive overlapping Background Text -->
+    <div class="custom-bg-text">FINISHES</div>
+
+    <div class="container custom-container">
+      <div class="custom-header">
+        <p class="section-label">Design Your Xpod</p>
+        <h2 class="section-title">Select Exterior Finish.</h2>
+      </div>
+
+      <div class="custom-main-row">
+        <!-- Visual Showcase (Left) -->
+        <div class="custom-showcase">
+          <div class="pod-preview-wrapper">
+            <img src="images/CUSTOM.png?v=2" alt="Xpod Customizer" class="pod-preview-img" id="pod-preview">
+          </div>
+        </div>
+
+        <!-- Floating Color Controls (Right) -->
+        <div class="custom-color-controls">
+          <h4 class="control-label" style="text-align: center; margin-bottom: 8px;">Finishes</h4>
+          <div class="color-options">
+            <button class="color-btn active" data-color="CUSTOM" aria-label="Default">
+              <span class="color-swatch sw-default"></span>
+            </button>
+            <button class="color-btn" data-color="GOLD" aria-label="Golden Texture">
+              <span class="color-swatch sw-gold" style="background-image: url('images/tex_gold.png');"></span>
+            </button>
+            <button class="color-btn" data-color="SILVER" aria-label="Silver Texture">
+              <span class="color-swatch sw-silver" style="background-image: url('images/tex_silver.png');"></span>
+            </button>
+            <button class="color-btn" data-color="BLACK" aria-label="Matte Black">
+              <span class="color-swatch sw-black"></span>
+            </button>
+          </div>
+          <p class="color-label-text" id="color-label-text">Signature Silver</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ABOUT ========== -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-image">
+          <img src="images/X7-2.jpeg" alt="Xpod X7 Detail">
+        </div>
+        <div class="about-content">
+          <p class="section-label">About Xpod</p>
+          <h2 class="section-title">Precision Over<br>Ornamentation.</h2>
+          <p class="about-text">Xpod is a premium modular pod brand designed for modern workspaces, resorts, and residential environments. It combines architectural clarity with functional precision, offering ready-to-deploy spaces that feel intentional, refined, and future-ready.</p>
+          <p class="about-text">Every detail serves a purpose. No visual noise. Design enhances usability, not the other way around.</p>
+          <div class="about-stats">
+            <div class="stat-item">
+              <span class="stat-num">50+</span>
+              <span class="stat-desc">Pods Delivered</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">3</span>
+              <span class="stat-desc">Pod Models</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">10+</span>
+              <span class="stat-desc">States Covered</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FEATURES ========== -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">Why Xpod</p>
+        <h2 class="section-title">Built Different.</h2>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card" id="feature-1">
+          <span class="feature-num">01</span>
+          <h3>Modular Intelligence</h3>
+          <p>Systems are scalable, expandable, and logically structured. Each pod adapts to its environment and purpose.</p>
+        </div>
+        <div class="feature-card" id="feature-2">
+          <span class="feature-num">02</span>
+          <h3>Controlled Luxury</h3>
+          <p>Premium without excess. Every material and finish is chosen for durability, aesthetics, and architectural integrity.</p>
+        </div>
+        <div class="feature-card" id="feature-3">
+          <span class="feature-num">03</span>
+          <h3>Context Awareness</h3>
+          <p>Pods adapt visually and structurally to their environment — from beachfronts to hillsides to urban landscapes.</p>
+        </div>
+        <div class="feature-card" id="feature-4">
+          <span class="feature-num">04</span>
+          <h3>Rapid Deployment</h3>
+          <p>Fully transportable and ready to install. Minimal on-site work, maximum architectural impact.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CTA / CONTACT ========== -->
+  <section class="cta-section" id="contact">
+    <div class="cta-bg">
+      <img src="images/ALL.png" alt="Xpod Range" class="cta-bg-img">
+    </div>
+    <div class="cta-overlay"></div>
+    <div class="cta-content">
+      <p class="section-label">Ready to Move?</p>
+      <h2 class="cta-title">Let's Build Your<br>Space.</h2>
+      <p class="cta-text">Get in touch to explore our pod models, request a brochure, or schedule a visit.</p>
+      <div class="cta-actions">
+        <a href="https://xpod.co.in/book-xpods/" class="btn btn-white btn-lg" id="cta-book-btn">Book Now</a>
+        <a href="#" class="btn btn-outline-white" id="brochureBtn">Download Brochure</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer" id="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="images/LOGO-FOR-EXBTN.png" alt="Xpod" class="footer-logo">
+          <p>Portable Spaces.</p>
+        </div>
+        <div class="footer-nav">
+          <div class="footer-col">
+            <h4>Navigate</h4>
+            <ul>
+              <li><a href="#hero">Home</a></li>
+              <li><a href="#products">Xpods</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Products</h4>
+            <ul>
+              <li><a href="#">X7 — Homes & Resort</a></li>
+              <li><a href="#">X6 — Homes & Resort</a></li>
+              <li><a href="#">X5 — Office Pod</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Connect</h4>
+            <div class="social-row">
+              <a href="https://www.instagram.com/xpod.spaces/" target="_blank" rel="noopener" aria-label="Instagram" class="social-link" id="social-ig">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+              </a>
+              <a href="https://in.linkedin.com/in/faris-sulaiman-1534b9259" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-link" id="social-li">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Xpod®. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== BROCHURE MODAL ========== -->
+  <div class="modal" id="brochure-modal" aria-hidden="true" role="dialog">
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-dialog" role="document" tabindex="-1">
+      <button class="modal-close" aria-label="Close" data-close-modal>&times;</button>
+      <h3 class="modal-title">Download Brochure</h3>
+      <ul class="modal-list">
+        <li><a href="https://xpod.co.in/wp-content/uploads/2026/01/XPOD-X7-CATALOGUE-2026.pdf" download>X7 — Homes & Resort Pod</a></li>
+        <li><a href="https://xpod.co.in/wp-content/uploads/2026/01/XPOD-X6-CATALOGUE-2026.pdf" download>X6 — Homes & Resort Pod</a></li>
+        <li><a href="https://xpod.co.in/wp-content/uploads/2026/01/XPOD-X5-CATALOGUE-2026.pdf" download>X5 — Office Pod</a></li>
+        <li><a href="https://xpod.co.in/wp-content/uploads/2026/01/XPOD-MASTER-CATALOGUE-2026.pdf" download>Xpod Master Catalogue</a></li>
+      </ul>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
