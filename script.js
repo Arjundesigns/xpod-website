@@ -212,16 +212,51 @@ document.addEventListener('DOMContentLoaded', () => {
   // =============================================
   const navbar = document.getElementById('navbar');
 
+  // Hide on scroll down (past a threshold), reveal on scroll up.
+  // Never hide while the mobile menu is open.
+  const NAV_HIDE_AFTER = 200;
+
+  function applyNavScrollState(y, direction) {
+    navbar.classList.toggle('scrolled', y > 80);
+
+    if (document.body.classList.contains('locked')) {
+      navbar.classList.remove('nav-hidden');
+      return;
+    }
+
+    if (direction > 0 && y > NAV_HIDE_AFTER) {
+      navbar.classList.add('nav-hidden');
+    } else if (direction < 0) {
+      navbar.classList.remove('nav-hidden');
+    }
+  }
+
+  // Direction computed from the scroll delta ourselves so it stays correct
+  // regardless of Lenis/ScrollTrigger internals.
+  let lastNavScrollY = window.pageYOffset;
+
   if (hasGSAP) {
     ScrollTrigger.create({
-      start: 80,
+      start: 0,
+      end: 'max',
       onUpdate: (self) => {
-        navbar.classList.toggle('scrolled', self.scroll() > 80);
+        const y = self.scroll();
+        if (Math.abs(y - lastNavScrollY) < 4) return; // ignore micro-jitter
+        applyNavScrollState(y, y > lastNavScrollY ? 1 : -1);
+        lastNavScrollY = y <= 0 ? 0 : y;
       },
     });
   } else {
+    let navTicking = false;
     window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.pageYOffset > 80);
+      if (navTicking) return;
+      navTicking = true;
+      window.requestAnimationFrame(() => {
+        const y = window.pageYOffset;
+        applyNavScrollState(y, y > lastNavScrollY ? 1 : -1);
+        lastNavScrollY = y <= 0 ? 0 : y;
+        navTicking = false;
+      });
     }, { passive: true });
   }
 
@@ -438,7 +473,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const colorLabelText = document.getElementById('color-label-text');
   
   const colorNames = {
-    'CUSTOM': 'Signature Silver (Default)',
+    'CUSTOM': 'Signature Finish',
     'GOLD': 'Brushed Gold',
     'SILVER': 'Brushed Silver',
     'BLACK': 'Matte Black'
